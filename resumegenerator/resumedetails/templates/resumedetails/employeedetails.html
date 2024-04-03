@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <title>Employee Details</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="">Job Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="jobtitle"
+                name="jobtitle"
+                aria-describedby="emailHelp"
+                placeholder="Enter Job Title"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">Employer Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="employer"
+                name="employer"
+                aria-describedby="emailHelp"
+                placeholder="Enter Employer Name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">Start Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="startdate"
+                name="startdate"
+                aria-describedby="emailHelp"
+                placeholder="Enter Start Date"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">End Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="enddate"
+                name="enddate"
+                aria-describedby="emailHelp"
+                placeholder="Enter End Date"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">City</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                name="city"
+                aria-describedby="emailHelp"
+                placeholder="Enter city name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">Description</label>
+              <textarea
+                type="text"
+                class="form-control"
+                id="description"
+                name="description"
+                aria-describedby="emailHelp"
+                placeholder="Enter description"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              Submit Employee Details
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

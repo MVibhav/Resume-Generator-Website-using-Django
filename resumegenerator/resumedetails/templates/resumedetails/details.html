@@ -1,0 +1,495 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <style>
+      .bg {
+        background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).webp");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+    <title>Resume Details</title>
+  </head>
+  <body>
+    <div class="bg">
+      <h1><center>Resume Generator</center></h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <form id="myForm" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="">First Name</label>
+              <input required
+                type="text"
+                class="form-control"
+                id="firstname"
+                name="firstname"
+                aria-describedby="emailHelp"
+                placeholder="Enter First Name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">Last Name</label>
+              <input required
+                type="text"
+                class="form-control"
+                id="lastname"
+                name="lastname"
+                aria-describedby="emailHelp"
+                placeholder="Enter Last Name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">Email</label>
+              <input required
+                type="text"
+                class="form-control"
+                id="email"
+                name="email"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">Phone</label>
+              <input required
+                type="text"
+                class="form-control"
+                id="phone"
+                name="phone"
+                aria-describedby="emailHelp"
+                placeholder="Enter phone"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">Location</label>
+              <input required
+                type="text"
+                class="form-control"
+                id="loca"
+                name="loca"
+                aria-describedby="emailHelp"
+                placeholder="Enter location"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="">About</label>
+              <textarea required
+                type="text"
+                class="form-control"
+                id="summary"
+                name="summary"
+                aria-describedby="emailHelp"
+                placeholder="Enter about you"
+              ></textarea>
+            </div>
+
+            <div id="educationDetailsContainer"></div>
+
+            <div class="form-group">
+              <button class="btn btn-warning"
+                type="button"
+                id="educationdetails"
+                name="educationdetails"
+              >
+                Education Details +
+              </button>
+            </div>
+
+            <div id="employeeDetailsContainer"></div>
+
+            <div class="form-group">
+              <button class="btn btn-warning" type="button" id="employeedetails" name="employeedetails">
+                Employer Details +
+              </button>
+            </div>
+
+            <div id="skillDetailsContainer"></div>
+
+            <div class="form-group">
+              <button class="btn btn-warning" type="button" id="skilldetails" name="skilldetails">
+                Skill +
+              </button>
+            </div>
+
+            <div id="projectDetailsContainer"></div>
+
+            <div class="form-group">
+              <button class="btn btn-warning"
+                type="button"
+                id="projectdetails"
+                name="projectdetails"
+              >
+                Project +
+              </button>
+            </div>
+
+            <div id="certificateDetailsContainer"></div>
+
+            <div class="form-group">
+              <button class="btn btn-warning"
+                type="button"
+                id="certificatedetails"
+                name="certificatedetails"
+              >
+                Certification +
+              </button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <a href="{% url 'allusers' %}" class="btn btn-success"
+            >Show all resumes</a
+          >
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const addEmployeeBtn = document.getElementById("employeedetails");
+        const employeeDetailsContainer = document.getElementById(
+          "employeeDetailsContainer"
+        );
+        let count = 0;
+
+        addEmployeeBtn.addEventListener("click", function () {
+          count++;
+          const employeeDetailsFields = `
+            <div class="form-group">
+              Employee Details ${count}:
+              <br/>
+                  <label for="">Job Title ${count}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="jobtitle${count}"
+                    name="jobtitle${count}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Job Title"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">Employer Name ${count}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="employer${count}"
+                    name="employer${count}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Employer Name"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">Start Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="empstartdate${count}"
+                    name="empstartdate${count}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Start Date"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">End Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="empenddate${count}"
+                    name="empenddate${count}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter End Date"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">City</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="empcity${count}"
+                    name="empcity${count}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter city name"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">Description</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    id="empdescription${count}"
+                    name="empdescription${count}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter description"
+                  ></textarea>
+                </div>
+          `;
+          employeeDetailsContainer.insertAdjacentHTML(
+            "beforeend",
+            employeeDetailsFields
+          );
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const addEducationBtn = document.getElementById("educationdetails");
+        const educationDetailsContainer = document.getElementById(
+          "educationDetailsContainer"
+        );
+        let educount = 0;
+
+        addEducationBtn.addEventListener("click", function () {
+          educount++;
+          const educationDetailsFields = `
+            <div class="form-group">
+              Education Details ${educount}:
+              <br/>
+                  <label for="">School/College ${educount}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="school${educount}"
+                    name="school${educount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter School/College"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">Degree ${educount}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="degree${educount}"
+                    name="degree${educount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Degree"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">Start Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="edustartdate${educount}"
+                    name="edustartdate${educount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Start Date"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">End Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="eduenddate${educount}"
+                    name="eduenddate${educount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter End Date"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">City</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="educity${educount}"
+                    name="educity${educount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter city name"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="">CGPA/Percentage</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="edupercent${educount}"
+                    name="edupercent${educount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter CGPA/Percentage"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">Description(Optional)</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    id="edudescription${educount}"
+                    name="edudescription${educount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter description"
+                  ></textarea>
+                </div>
+          `;
+          educationDetailsContainer.insertAdjacentHTML(
+            "beforeend",
+            educationDetailsFields
+          );
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const addSkillBtn = document.getElementById("skilldetails");
+        const skillDetailsContainer = document.getElementById(
+          "skillDetailsContainer"
+        );
+        let skillCount = 0;
+
+        addSkillBtn.addEventListener("click", function () {
+          skillCount++;
+          const skillDetailsFields = `
+            <div class="form-group">
+                  <label for="">Skill ${skillCount}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="skill${skillCount}"
+                    name="skill${skillCount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Skill"
+                  />
+                </div>
+          `;
+          skillDetailsContainer.insertAdjacentHTML(
+            "beforeend",
+            skillDetailsFields
+          );
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const addProjectBtn = document.getElementById("projectdetails");
+        const projectDetailsContainer = document.getElementById(
+          "projectDetailsContainer"
+        );
+        let projcount = 0;
+
+        addProjectBtn.addEventListener("click", function () {
+          projcount++;
+          const projectDetailsFields = `
+            <div class="form-group">
+              Project Details ${projcount}:
+              <br/>
+                  <label for="">Project Name ${projcount}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="projectname${projcount}"
+                    name="projectname${projcount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Project Name"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">Start Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="projstartdate${projcount}"
+                    name="projstartdate${projcount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Start Date"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">End Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="projenddate${projcount}"
+                    name="projenddate${projcount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter End Date"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">Description</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    id="projdescription${projcount}"
+                    name="projdescription${projcount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter description"
+                  ></textarea>
+                </div>
+          `;
+          projectDetailsContainer.insertAdjacentHTML(
+            "beforeend",
+            projectDetailsFields
+          );
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const addCertificateBtn = document.getElementById("certificatedetails");
+        const certificateDetailsContainer = document.getElementById(
+          "certificateDetailsContainer"
+        );
+        let certificatecount = 0;
+
+        addCertificateBtn.addEventListener("click", function () {
+          certificatecount++;
+          const certificateDetailsFields = `
+            <div class="form-group">
+              Certificate Details ${certificatecount}:
+              <br/>
+                  <label for="">Certificate Name ${certificatecount}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="certificatename${certificatecount}"
+                    name="certificatename${certificatecount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Certificate Name"
+                  />
+                </div>
+    
+                <div class="form-group">
+                  <label for="">Vendor Name ${certificatecount}</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="vendorname${certificatecount}"
+                    name="vendorname${certificatecount}"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Vendor Name"
+                  />
+                </div>
+          `;
+          certificateDetailsContainer.insertAdjacentHTML(
+            "beforeend",
+            certificateDetailsFields
+          );
+        });
+      });
+    </script>
+  </div>
+  </body>
+</html>

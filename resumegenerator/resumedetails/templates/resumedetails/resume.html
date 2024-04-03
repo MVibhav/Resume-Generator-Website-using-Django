@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    div.con{
+      text-align: center;
+    }
+
+    ul.myUL {
+      display: inline-block;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-md-8 mx-auto text-center">
+        <h2 class="mb-4">{{reqresume.firstname}} {{reqresume.lastname}}</h2>
+        <p class="mb-4">{{reqresume.loca}} | {{reqresume.phone}} | {{reqresume.email}}</p>
+      </div>
+    </div>
+
+    <hr class="mb-4">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-3"><center>Professional Summary</center></h3>
+        <p>{{reqresume.summary}}</p>
+      </div>
+    </div>
+
+      <hr class="mb-4">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-3"><center>Work Experience</center></h3>
+        {% for emp in reqresume.employeeDetails.all %}
+        <p><strong><center>{{emp.jobtitle}}</center></strong></p>
+        <p><em><center>{{emp.employer}}</center></em></p>
+        <p><center>{{emp.startdate}} - {{emp.enddate}}</center></p>
+        <p>{{emp.description}}</p>
+        <hr>
+        {% endfor %}
+      </div>
+      <div class="col-md-12">
+        <h3 class="mb-3"><center>Education</center></h3>
+        <center><table>
+          <tr>
+            <th>Degree</th>
+            <th>School/College</th>
+            <th>Duration</th>
+            <th>CGPA/Percentage</th>
+        </tr>
+        {% for edu in reqresume.educationDetails.all %}
+        <tr>
+        <td><strong>{{edu.degree}}</strong></td>
+        <td><em>{{edu.school}}</em></td>
+        <td>{{edu.startdate}} - {{edu.enddate}}</td>
+        <td>{{edu.percent}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </center>
+      </div>
+    </div>
+
+    <hr class="mb-4">
+
+      <div class="col-md-12">
+        <h3 class="mb-3"><center>Skills</center></h3>
+        <div class="con">
+        <ul class="myUL">
+          {% for skill in reqresume.skillDetails.all %}
+          <li>{{skill.skill}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      </div>
+      <hr class="mb-4">
+      <div class="col-md-12">
+        <h3 class="mb-3"><center>Certifications</center></h3>
+        <div class="con">
+        <ul class="myUL">
+          {% for cert in reqresume.certificateDetails.all %}
+          <li>{{cert.certificate}} ({{cert.vendor}})</li>
+          {% endfor %}
+        </ul>
+      </div>
+      </div>
+
+    <hr class="mb-4">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-3"><center>Projects</center></h3><center>
+        {% for proj in reqresume.projectDetails.all %}
+        <p><strong>{{proj.project}}</strong></p>
+        <p>{{proj.startdate}} - {{proj.enddate}}</p>
+        <p>{{proj.description}}</p>
+        <hr>
+        {% endfor %}
+        </center>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
